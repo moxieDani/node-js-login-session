@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express', message : "" });
 });
 
 router.post('/login', function(req, res, next) {
@@ -17,7 +17,7 @@ router.post('/login', function(req, res, next) {
     }
     // Generate a JSON response reflecting authentication status
     if (! user) {
-      return res.send({ success : false, message : 'authentication failed' });
+      return res.render('index', { title: 'Express', message : req.flash('loginMessage')});
     }
     return res.send({ success : true, message : 'authentication succeeded' });
   })(req, res, next);
