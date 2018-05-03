@@ -28,16 +28,13 @@ router.post('/login', function(req, res, next) {
 
     req.login(user, function(error) {
       if (error) return next(error);
-      sess = req.session;
-      sess.username = user.id;
-      sess.authcode = user.auth_codes.split(',');
       res.redirect('/myinfo');
     });
   })(req, res, next);
 });
 
 router.get('/myinfo', checkAuthentication, function (req, res) {
-  sess = req.session;
+  sess = req.session.passport.user;
   return res.render('myinfo', { title: 'My Info', session: sess });
 });
 
