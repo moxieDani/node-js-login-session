@@ -23,10 +23,8 @@ module.exports = function(passport) {
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
+    passport.deserializeUser(function(user, done) {
+        done(null, user);
     });
 
     // LOCAL LOGIN
@@ -40,11 +38,11 @@ module.exports = function(passport) {
             dbController.connection.query("SELECT * FROM `user` WHERE `id` = '" + username + "'",function(err,rows){
                 if (err)
                     return done(err);
-                console.log(username);
+
                 if (!rows.length) {
-                    return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, req.flash('loginMessage', 'No user found.'));
                 } 
-    
+
                 // all is well, return successful user
                 return done(null, rows[0]);
             });

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./login/head %>
+  </head>
+
+  <body>
+    <%= title %><br>
+    username : <%= session.username %><br>
+    <% if(session.authcode.includes('TA')) {%>
+      YES<br>
+    <% } %>
+    <% for(var i=0; i<session.authcode.length; i++) {%>
+        authcode : <%= session.authcode[i] %><br>
+    <% } %>
+  </body>
+</html>
