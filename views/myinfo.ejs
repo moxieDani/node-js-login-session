@@ -7,11 +7,14 @@
   <body>
     <%= title %><br>
     username : <%= session.username %><br>
+    email : <%= session.email %><br>
     <% if(session.authcode.includes('TA')) {%>
       YES<br>
     <% } %>
     <% for(var i=0; i<session.authcode.length; i++) {%>
         authcode : <%= session.authcode[i] %><br>
     <% } %>
+    <br>
+    <a href="/logout" class="btn btn-default">Logout</a>
   </body>
 </html>

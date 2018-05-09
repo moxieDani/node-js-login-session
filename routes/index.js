@@ -28,9 +28,19 @@ router.post('/login', function(req, res, next) {
 
     req.login(user, function(error) {
       if (error) return next(error);
+      var hour = 10800000;
+      req.session.cookie.expires = new Date(Date.now() + hour);
+      req.session.cookie.maxAge = hour;
+      console.log(JSON.stringify(req.session));
       res.redirect('/myinfo');
     });
   })(req, res, next);
+});
+
+router.get('/logout', function(req, res){                                                                          
+  req.logout();
+  console.log(JSON.stringify(req.session));
+  res.redirect('/');
 });
 
 router.get('/myinfo', checkAuthentication, function (req, res) {
